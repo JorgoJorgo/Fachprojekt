@@ -114,24 +114,28 @@ class DemandsFirstWaypoints(GenericSR):
 
         waypoints = dict()
         sorted_demand_idx_map = dict(zip(range(len(self.__demands)), np.array(self.__demands)[:, 2].argsort()[::-1]))
+        #jeden demand durchgehen
         for d_map_idx in range(len(self.__demands)):
             d_idx = sorted_demand_idx_map[d_map_idx]
             s, t, d = self.__demands[d_idx]
             best_waypoint = None
+            #jeden anderen Knoten (nicht source / target vom demand aus dem durchlauf) als möglichen waypoint nehmen
             for waypoint in range(self.__n):
                 if waypoint == s or waypoint == t:
                     continue
+                #die flow map updaten mit dem neuen waypoint
                 flow_map = self.__update_flow_map(sp_fraction_map, best_flow_map, s, t, d, waypoint)
                 util_map, objective = self.__compute_utilization(flow_map)
-
+                #prüfen ob der flow sich verbessert 
                 if objective < best_objective:
                     best_flow_map = flow_map
                     best_util_map = util_map
                     best_objective = objective
                     best_waypoint = waypoint
-
+            #utilization ist besser geworden, waypoint wird behalten 
             if best_waypoint is not None:
                 waypoints[d_idx] = [(s, best_waypoint), (best_waypoint, t)]
+            #mlu nicht besser geworden, keinen waypoint eintragen
             else:
                 waypoints[d_idx] = [(s, t)]
         loads = {(u, v): best_util_map[u][v] for u, v, in self.__links}
