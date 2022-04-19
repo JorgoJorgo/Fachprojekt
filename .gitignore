@@ -292,3 +292,5 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+out/
+data/topologies/topology_zoo/
