@@ -62,15 +62,17 @@ class EqualSplitShortestPath(GenericSR):
 
             self.__flow_sum[(i, j)] += demand
         return
-
+    #Algo ruft sich  am ende selber auf , noch nicht verstanden warum ? (TODO)
     def __add_demand_update_objective(self, src, dst, demand):
         if (src, dst) not in self.__all_shortest_paths:
             self.__all_shortest_paths[src, dst] = list(self.__all_shortest_paths_generators[src, dst])
-
+        #wenn es einen Punkt gibt an dem sich der Fluss teilen kann (weil es mehrere Wege gibt mit den gleichen Kosten)
         if self.__split:
+            #wie oft wird der Fluss geteilt(wie viele Wege mit gleichen Kosten gibt es?)
             n_splits = len(self.__all_shortest_paths[src, dst])
             split_demand = demand / n_splits
             for shortest_path in self.__all_shortest_paths[src, dst]:
+                #für jeden dieser kürzesten Wege wird ein neuer Demand hinzugefügt mit dem geteilten Traffic
                 self.__add_demand_val_to_path(shortest_path, split_demand)
         else:
             # take first shortest path if multiple

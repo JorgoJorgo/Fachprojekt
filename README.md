@@ -1,5 +1,4 @@
 # Traffic Engineering with Joint Link Weight and Segment Optimization
-
 ## Overview 
 The code has been the basis for computational evaluations within the publication '**Traffic Engineering with Joint Link Weight and Segment Optimization**'.
 This repository contains all implemented algorithms, traffic and topology generators. Additionally, we provide the raw results (JSON), and the plotting script used for Fig. (3)-(5).

@@ -3,7 +3,7 @@ import time
 from algorithm.generic_sr import GenericSR
 from algorithm.segment_routing.equal_split_shortest_path import EqualSplitShortestPath
 
-
+#Das Gewicht eines Links ist die Inverse Kapazität des Links
 class InverseCapacity(GenericSR):
     def __init__(self, nodes: list, links: list, demands: list, weights: dict = None, waypoints: dict = None, **kwargs):
         super().__init__(nodes, links, demands, weights, waypoints)

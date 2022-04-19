@@ -4,7 +4,17 @@
         In Proc. IEEE INFOCOM, volume 2, pages 519–528. IEEE, 2000. doi:10.1109/INFCOM.2000.
         832225.
 """
+#Ein zentrales Funktionselement von OSPF ist die Topologie-Datenbank. Sie wird über den Austausch 
+#von Routinginformationen mit anderen Routern aufgebaut. Jeder Router übermittelt hierfür seine lokale 
+#Sicht des Netzwerks mit seinen über die einzelnen Routerinterfaces erreichbaren Nachbarn an alle anderen 
+#Router des Netzwerks. Mithilfe des Shortest Path Algorithmus erstellt jeder Router aus seiner Sicht einen 
+#Baum mit dem optimalen Weg zu einem bestimmten Ziel. Aus diesen Informationen kann dann die Routingtabelle 
+#erstellt werden. Die Routingtabelle enthält die Informationen, über welchen nächsten Router ein bestimmtes Netz mit welchen "Kosten" erreichbar ist.
 
+#jeder Router hat seine eigene Routingtabelle
+#pfade werden mit dem shortest path finding algo erstellt
+#pfade werden den nachbarn mitgeteilt und wenn nötig aktualisiert (weil nicht vorhanden / höhere Kosten)
+#so kommen am alle routingtabellen auf die gleichen werte
 import random
 import time
 

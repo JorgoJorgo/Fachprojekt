@@ -108,6 +108,7 @@ class DemandsFirstWaypoints(GenericSR):
         """ main procedure """
         distances = self.__compute_distances()
         sp_fraction_map = self.__get_shortest_path_fraction_map(distances)
+        #map für die besten wege die die flows nehmen sollen 
         best_flow_map = self.__get_flow_map(sp_fraction_map)
         best_util_map, best_objective = self.__compute_utilization(best_flow_map)
 

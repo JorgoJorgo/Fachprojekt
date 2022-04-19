@@ -62,7 +62,7 @@ def get_fpp(links, divisor: int = 4, min_fpp: int = 3):
 
 
 def get_setup_dict(algorithm, demands, demand_provider_name, links, method, n, sample_idx, test_idx, topology_name,
-                   topology_provider_name, active_pairs_fraction, mcf_method, seed):
+                topology_provider_name, active_pairs_fraction, mcf_method, seed):
     """ stores all setup information of a single test """
     setup = dict()
     setup["test_idx"] = test_idx
