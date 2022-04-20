@@ -32,13 +32,13 @@ def get_algorithm(algorithm_name: str, nodes: list, links: list, demands: list, 
     elif algorithm_name == "uniform_weights":
         algorithm = UniformWeights(nodes, links, demands, weights, waypoints, seed=seed)
     elif algorithm_name == "exponential_capacity":
-        algorithm = ExponentialCapacity(nodes, links, demands, weights, waypoints, seed=seed)
+        algorithm = ExponetialCapacity(nodes, links, demands, weights, waypoints, seed=seed)
     elif algorithm_name == "fak_capacity":
-        algorithm = FakCapacity(nodes, links, demands)(nodes, links, demands, weights, waypoints, seed=seed)
+        algorithm = FakCapacity(nodes, links, demands, weights, waypoints, seed=seed)
     elif algorithm_name == "fib_capacity":
-        algorithm = FibCapacity(nodes, links, demands)(nodes, links, demands, weights, waypoints, seed=seed)
+        algorithm = FibCapacity(nodes, links, demands, weights, waypoints, seed=seed)
     elif algorithm_name == "inverse_square_capacity":
-        algorithm = InverseSquareCapacity(nodes, links, demands)(nodes, links, demands)(nodes, links, demands, weights, waypoints, seed=seed)
+        algorithm = InverseSquareCapacity(nodes, links, demands, weights, waypoints, seed=seed)
     elif algorithm_name == "log2_capacity":
         algorithm = Log2Capacity(nodes, links, demands, weights, waypoints, seed=seed)
     else:
