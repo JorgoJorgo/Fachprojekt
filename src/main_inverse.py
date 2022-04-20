@@ -243,17 +243,15 @@ def snd_real_demands():
     # algorithm settings
     algorithms = [
         "inverse_capacity",
-        "exponential_capacity",
-        "fak_capacity",
-        "fib_capacity",
         "inverse_square_capacity",
+        "fib_capacity",
         "log2_capacity",
     ]
     ilp_method = ""
 
     # topology provider setup
     topology_provider = "snd_lib"
-    topologies = ['abilene', 'geant', 'germany50']
+    topologies = ['abilene'] #, 'geant', 'germany50']
     topology_generator = get_topology_generator(topology_provider, topologies)
 
     # demand provider setup

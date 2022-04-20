@@ -1,5 +1,4 @@
 import time
-import math
 
 from algorithm.generic_sr import GenericSR
 from algorithm.segment_routing.equal_split_shortest_path import EqualSplitShortestPath
@@ -41,4 +40,4 @@ class InverseSquareCapacity(GenericSR):
 
     def get_name(self):
         """ returns name of algorithm """
-        return f"inverse_capacity"
+        return f"inverse_square_capacity"
