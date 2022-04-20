@@ -7,6 +7,11 @@ from algorithm.segment_routing.inverse_capacity import InverseCapacity
 from algorithm.segment_routing.segment_ilp import SegmentILP
 from algorithm.segment_routing.sequential_combination import SequentialCombination
 from algorithm.segment_routing.uniform_weights import UniformWeights
+from algorithm.segment_routing.exponential_capacity import ExponetialCapacity
+from algorithm.segment_routing.fak_capacity import FakCapacity
+from algorithm.segment_routing.fib_capacity import FibCapacity
+from algorithm.segment_routing.inverse_square_capacity import InverseSquareCapacity
+from algorithm.segment_routing.log2_capacity import Log2Capacity
 
 
 def get_algorithm(algorithm_name: str, nodes: list, links: list, demands: list, weights=None, waypoints=None,
@@ -26,6 +31,16 @@ def get_algorithm(algorithm_name: str, nodes: list, links: list, demands: list, 
                                           first_algorithm="heur_ospf_weights", second_algorithm="demand_first_waypoints")
     elif algorithm_name == "uniform_weights":
         algorithm = UniformWeights(nodes, links, demands, weights, waypoints, seed=seed)
+    elif algorithm_name == "exponential_capacity":
+        algorithm = ExponentialCapacity(nodes, links, demands, weights, waypoints, seed=seed)
+    elif algorithm_name == "fak_capacity":
+        algorithm = FakCapacity(nodes, links, demands)(nodes, links, demands, weights, waypoints, seed=seed)
+    elif algorithm_name == "fib_capacity":
+        algorithm = FibCapacity(nodes, links, demands)(nodes, links, demands, weights, waypoints, seed=seed)
+    elif algorithm_name == "inverse_square_capacity":
+        algorithm = InverseSquareCapacity(nodes, links, demands)(nodes, links, demands)(nodes, links, demands, weights, waypoints, seed=seed)
+    elif algorithm_name == "log2_capacity":
+        algorithm = Log2Capacity(nodes, links, demands, weights, waypoints, seed=seed)
     else:
         err_msg = f"algorithm not found: {algorithm_name}"
         raise Exception(err_msg)
