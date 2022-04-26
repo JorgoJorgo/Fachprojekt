@@ -13,12 +13,15 @@ from algorithm.segment_routing.fak_capacity import FakCapacity
 from algorithm.segment_routing.fib_capacity import FibCapacity
 from algorithm.segment_routing.inverse_square_capacity import InverseSquareCapacity
 from algorithm.segment_routing.log2_capacity import Log2Capacity
+from algorithm.segment_routing.independent_paths_waypoints import IndependentPathsWaypoint
 
 
 def get_algorithm(algorithm_name: str, nodes: list, links: list, demands: list, weights=None, waypoints=None,
                   seed: float = 42, ilp_method: str = None, time_out: int = None, sf: int = 100) -> GenericSR:
     algorithm_name = algorithm_name.lower()
-    if algorithm_name == "demand_first_waypoints":
+    if algorithm_name == "independent_paths_waypoints":
+        algorithm = IndependentPathsWaypoint(nodes, links, demands, weights, waypoints)
+    elif algorithm_name == "demand_first_waypoints":
         algorithm = DemandsFirstWaypoints(nodes, links, demands, weights, waypoints)
     elif algorithm_name == "heur_ospf_weights":
         algorithm = HeurOSPFWeights(nodes, links, demands, weights, waypoints, seed=seed, time_out=time_out)

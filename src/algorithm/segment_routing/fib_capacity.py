@@ -44,10 +44,7 @@ class FibCapacity(GenericSR):
         return f"inverse_capacity"
 
 
-    def Fibonacci(n):
-        if n <= 0:
-            return 0
-        elif n == 1 or n == 2:
-            return 1
-        else:
-            return Fibonacci(n-1) + Fibonacci(n-2)
+def Fibonacci(n):
+    if(n < 0):
+        raise Exception("Negative capacity of a edge is not allowed.")
+    return ( ( (1 + math.sqrt(5) / 2)**n - (1 - math.sqrt(5) / 2)**n ) / math.sqrt(5))
