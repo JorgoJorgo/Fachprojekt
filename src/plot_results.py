@@ -36,6 +36,7 @@ algo_c_map = {
     'ILP Weights': "royalblue",
     'GreedyWaypoints': "hotpink",
     'IndependentPathsWaypoints': "yellow",
+    'DemandShortestPath': "indigo",
     'RandomWaypoints': "cyan",
     'ILP Waypoints': "mediumvioletred",
     'JointHeur': "seagreen",

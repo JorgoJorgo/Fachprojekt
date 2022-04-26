@@ -244,6 +244,7 @@ def snd_real_demands():
     algorithms = [
         "inverse_capacity",
         "random_waypoints",
+        "demand_shortest_path",
         "log2_capacity",
         "independent_paths_waypoints",
         "demand_first_waypoints"
