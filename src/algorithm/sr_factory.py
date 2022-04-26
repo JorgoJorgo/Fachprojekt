@@ -2,7 +2,7 @@
 
 from algorithm.generic_sr import GenericSR
 from algorithm.segment_routing.demand_shortest_Path import DemandShortestPath
-from algorithm.segment_routing.demand_first_waypoint import DemandsFirstWaypoints
+from algorithm.segment_routing.demand_first_waypoints import DemandsFirstWaypoints
 from algorithm.segment_routing.heur_ospf_weights import HeurOSPFWeights
 from algorithm.segment_routing.inverse_capacity import InverseCapacity
 from algorithm.segment_routing.random_waypoints import RandomWaypoints
