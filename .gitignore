@@ -13,7 +13,7 @@
 
 # .nfs files are created when an open file is removed but is still being accessed
 .nfs*
-
+gurobi.lic
 ### Python template
 # Byte-compiled / optimized / DLL files
 __pycache__/
