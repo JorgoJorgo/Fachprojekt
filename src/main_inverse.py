@@ -243,7 +243,7 @@ def snd_real_demands():
     # algorithm settings
     algorithms = [
         "inverse_capacity",
-       # "inverse_square_capacity",
+        "random_waypoints",
         "log2_capacity",
         "independent_paths_waypoints",
         "demand_first_waypoints"
