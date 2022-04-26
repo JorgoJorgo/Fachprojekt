@@ -29,6 +29,9 @@ plt.rc('figure', titlesize=TITLE_SIZE)
 algo_c_map = {
     'UnitWeights': "grey",
     'InverseCapacity': "skyblue",
+    'InverseSquareCapacity': "darkblue",
+    'Log2Capacity': "royalblue",
+    'FibCapacity': "green",
     'HeurOSPF': "cornflowerblue",
     'ILP Weights': "royalblue",
     'GreedyWaypoints': "hotpink",
