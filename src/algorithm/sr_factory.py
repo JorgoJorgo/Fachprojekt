@@ -5,6 +5,7 @@ from algorithm.segment_routing.demand_shortest_Path import DemandShortestPath
 from algorithm.segment_routing.demand_first_waypoint import DemandsFirstWaypoints
 from algorithm.segment_routing.heur_ospf_weights import HeurOSPFWeights
 from algorithm.segment_routing.inverse_capacity import InverseCapacity
+from algorithm.segment_routing.random_waypoints import RandomWaypoints
 from algorithm.segment_routing.segment_ilp import SegmentILP
 from algorithm.segment_routing.sequential_combination import SequentialCombination
 from algorithm.segment_routing.uniform_weights import UniformWeights
@@ -13,12 +14,15 @@ from algorithm.segment_routing.fak_capacity import FakCapacity
 from algorithm.segment_routing.fib_capacity import FibCapacity
 from algorithm.segment_routing.inverse_square_capacity import InverseSquareCapacity
 from algorithm.segment_routing.log2_capacity import Log2Capacity
+from algorithm.segment_routing.independent_paths_waypoints import IndependentPathsWaypoint
 
 
 def get_algorithm(algorithm_name: str, nodes: list, links: list, demands: list, weights=None, waypoints=None,
                   seed: float = 42, ilp_method: str = None, time_out: int = None, sf: int = 100) -> GenericSR:
     algorithm_name = algorithm_name.lower()
-    if algorithm_name == "demand_first_waypoints":
+    if algorithm_name == "independent_paths_waypoints":
+        algorithm = IndependentPathsWaypoint(nodes, links, demands, weights, waypoints)
+    elif algorithm_name == "demand_first_waypoints":
         algorithm = DemandsFirstWaypoints(nodes, links, demands, weights, waypoints)
     elif algorithm_name == "demand_shortest_path":
         algorithm = DemandShortestPath(nodes, links, demands, weights, waypoints)
@@ -26,6 +30,8 @@ def get_algorithm(algorithm_name: str, nodes: list, links: list, demands: list, 
         algorithm = HeurOSPFWeights(nodes, links, demands, weights, waypoints, seed=seed, time_out=time_out)
     elif algorithm_name == "inverse_capacity":
         algorithm = InverseCapacity(nodes, links, demands, weights, waypoints, seed=seed)
+    elif algorithm_name == "random_waypoints":
+        algorithm = RandomWaypoints(nodes, links, demands, weights, waypoints)
     elif algorithm_name == "segment_ilp":
         algorithm = SegmentILP(nodes, links, demands, weights, waypoints, waypoint_count=1, method=ilp_method,
                                splitting_factor=sf, time_out=time_out)

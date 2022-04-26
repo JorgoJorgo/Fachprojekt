@@ -39,7 +39,7 @@ def work(algorithm_name, links, n, demands, ilp_method, setup, time_out, res_han
         result_dict.update(err_solution)
         print(f"{HIGHLIGHT}Error on: {setup}\n msg: {str(ex)}{CEND}")
     res_handler.insert_result(result_dict)
-    return success, result_dict["objective"]
+    return success, result_dict["objective"], result_dict["process_time"]
 
 
 def get_demands_generator_mcf_maximal(n, links, active_pairs_fraction, seed):
@@ -243,15 +243,16 @@ def snd_real_demands():
     # algorithm settings
     algorithms = [
         "inverse_capacity",
-        "inverse_square_capacity",
-        "fib_capacity",
+       # "inverse_square_capacity",
         "log2_capacity",
+        "independent_paths_waypoints",
+        "demand_first_waypoints"
     ]
     ilp_method = ""
 
     # topology provider setup
     topology_provider = "snd_lib"
-    topologies = ['abilene'] #, 'geant', 'germany50']
+    topologies = ['abilene', 'geant']
     topology_generator = get_topology_generator(topology_provider, topologies)
 
     # demand provider setup
@@ -272,10 +273,10 @@ def snd_real_demands():
                                        topology, topology_provider, 1, mcf_method, SEED)
 
                 print(f"submit test: {test_idx} ({topology}, {algorithm}, D_idx = {sample_idx})")
-                success, objective = work(algorithm, links.copy(), n, demands.copy(), ilp_method, setup,
+                success, objective, time = work(algorithm, links.copy(), n, demands.copy(), ilp_method, setup,
                                           ALGORITHM_TIME_OUT, result_handler)
                 print(f"Test-ID: {test_idx}, success: {success} [{algorithm}, "
-                      f"{topology}, {sample_idx}]: objective: {round(objective, 4)}")
+                          f"{topology}, {sample_idx}]: Time: {time} - objective: {round(objective, 4)}")
                 test_idx += 1
     return
 
