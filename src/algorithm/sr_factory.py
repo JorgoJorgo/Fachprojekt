@@ -1,7 +1,8 @@
 """ Factory for segment routing algorithms"""
 
 from algorithm.generic_sr import GenericSR
-from algorithm.segment_routing.demand_first_waypoints import DemandsFirstWaypoints
+from algorithm.segment_routing.demand_shortest_Path import DemandShortestPath
+from algorithm.segment_routing.demand_first_waypoint import DemandsFirstWaypoints
 from algorithm.segment_routing.heur_ospf_weights import HeurOSPFWeights
 from algorithm.segment_routing.inverse_capacity import InverseCapacity
 from algorithm.segment_routing.segment_ilp import SegmentILP
@@ -19,6 +20,8 @@ def get_algorithm(algorithm_name: str, nodes: list, links: list, demands: list, 
     algorithm_name = algorithm_name.lower()
     if algorithm_name == "demand_first_waypoints":
         algorithm = DemandsFirstWaypoints(nodes, links, demands, weights, waypoints)
+    elif algorithm_name == "demand_shortest_path":
+        algorithm = DemandShortestPath(nodes, links, demands, weights, waypoints)
     elif algorithm_name == "heur_ospf_weights":
         algorithm = HeurOSPFWeights(nodes, links, demands, weights, waypoints, seed=seed, time_out=time_out)
     elif algorithm_name == "inverse_capacity":
