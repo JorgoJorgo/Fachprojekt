@@ -118,6 +118,7 @@ class DemandShortestPath(GenericSR):
         sCache : int = -1
         tCache : int = -1
 
+
         #jeden demand durchgehen
         for d_map_idx in range(len(self.__demands)):
             d_idx = sorted_demand_idx_map[d_map_idx]
@@ -129,10 +130,10 @@ class DemandShortestPath(GenericSR):
                 tCache = t
 
                 #get Shortest Path between two nodes depended on the Demand
-                deiksta = nk.distance.BidirectionalDijkstra(self.__g, s,t,True)
-                deiksta.run()
-                shortesPathNodeList : list = [s] + deiksta.getPath() + [t]
-                potentialWaypoints : set = set() #sollte der alte Pfad auch da rein?
+                dijkstra = nk.distance.BidirectionalDijkstra(self.__g, s,t,True)
+                dijkstra.run()
+                shortesPathNodeList : list = [s] + dijkstra.getPath() + [t]
+                potentialWaypoints : set = set()
 
                 #get all neigbors for every node on the shortest path
                 for node in shortesPathNodeList :
