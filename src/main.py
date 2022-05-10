@@ -98,7 +98,7 @@ def all_topologies_synthetic_demands():
         "demand_shortest_path",
         "independent_paths_waypoints",
         "demand_first_waypoints",
-        "heur_ospf_weights"
+#        "heur_ospf_weights" # too slow for our server
     ]
     ilp_method = ""
 
@@ -201,7 +201,7 @@ def abilene_all_algorithms():
     # algorithm settings
     algorithms = [  # ("algorithm_name", "ilp_method")
         ("demand_first_waypoints", ""),
-        ("heur_ospf_weights", ""),
+        #("heur_ospf_weights", ""), too slow for our server
         ("inverse_capacity", ""),
         ("independent_paths_waypoints", ""),
         ("random_waypoints", ""),
