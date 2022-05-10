@@ -106,8 +106,12 @@ class RandomWaypoints(GenericSR):
         new_flow_map += sp_fraction_map[waypoint][t] * d
         return new_flow_map
 
-    def __checkWP( a , b , c , s ,t ):
-        return (a==s)or(a==t) or (b==s)or(b==t) or (c==s)or(c==t) 
+    def __checkWP( self , waypoints , source ,target ):
+
+        for wp in waypoints:
+            if ((wp == source)or(wp == target)):
+                return True
+        return False
 
     def __random_waypoints(self):
         """ main procedure """
@@ -129,18 +133,30 @@ class RandomWaypoints(GenericSR):
             d_idx = sorted_demand_idx_map[d_map_idx]
             s, t, d = self.__demands[d_idx]
             best_waypoint = None
-            randomWaypointIndex = random.sample(range(0, self.__n), 3)
-            #print(randomWaypointIndex[0])
+
+            #hier kann waypointCount verändert werden um noch mehr / weniger Wegpunkte zu probieren
+            #kann bis max auf n-2 gesetzt werden , da s und t nicht in der potenziellen wp menge drin sein dürfen
+            waypointCount = self.__n-2
             
-            while( self.__checkWP(randomWaypointIndex[0], randomWaypointIndex[1],s,t) ):
-                randomWaypointIndex = random.sample(range(0, self.__n), 3)
+            if (waypointCount > self.__n):
+                print("nicht zu lässige Waypointanzahl")
+                waypointCount = random.sample(range(0, self.__n))
+                print("nehme stattdessen :" + waypointCount)
+
+            #sample(range(0,n),waypointCount) sucht aus dem Intervall [0,n] waypointCount viele Zahlen raus
+        
+            randomWaypointIndex = random.sample(range(0, self.__n), waypointCount)
+
+            #solange waypointCount viele Random Zahlen suchen bis alle Random Zahlen ungleich Source & Target sind
+            while( self.__checkWP(randomWaypointIndex,s,t) ):
+                randomWaypointIndex = random.sample(range(0, self.__n), waypointCount)
 
             #jeden anderen Knoten (nicht source / target vom demand aus dem durchlauf) als möglichen waypoint nehmen
-            a = randomWaypointIndex[0]
-            b = randomWaypointIndex[1]
-            c = randomWaypointIndex[2]
+            
+            list = []
+            for wp in randomWaypointIndex:
+                list.append(self.__nodes[wp])
 
-            list = [self.__nodes[a],self.__nodes[b],self.__nodes[c]]
             for waypoint in list:
                 #die flow map updaten mit dem neuen waypoint
                 flow_map = self.__update_flow_map(sp_fraction_map, best_flow_map, s, t, d, waypoint)
