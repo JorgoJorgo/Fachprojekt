@@ -56,7 +56,7 @@ Additionally, we use the topology data available from [TopologyZoo](http://www.t
 
 
 ## Ubuntu VM-Image
-We have prepared a Ubuntu-VM to run the project. You can download a **ova** for Virtual-Box [here]().
+We have prepared a Ubuntu-VM to run the project. You can download a **ova** for Virtual-Box [here](https://tu-dortmund.sciebo.de/s/WNjHq43fUi0S35i).
 The username is "ubuntu" and the password is "ubunut"
 The code is located at /home/ubunbut/Fachprojekt. 
 You may need to get a Gurobi licences if the one we provide in the image is not working.
