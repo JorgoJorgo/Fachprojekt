@@ -1,0 +1,33 @@
+IndependentPathsWaypoint(Graph G, Demands D, limit)
+
+best_objective <- utilization()
+paths = []
+for demand in Demands:
+    source, target <- demand
+    best_path <- None
+    i <- 0
+    best_path = None
+    for path in all_shortest_paths(G, source, target):
+        if i > limit
+            break
+        else
+            i++
+
+        if len(path) == 2 // This is the best possible Path 
+            best_path = path
+            break
+        else
+            add all Nodes on path as waypoints
+            objective <- utilization()
+
+            if objective > best_objective
+                best_path <- path
+                best_objective <- objective
+            endif
+        endif
+    paths.append(best_path)
+    endfor
+endfor
+return best_objective, paths
+            
+
