@@ -189,4 +189,4 @@ class IndependentPathsWaypoint(GenericSR):
 
     def get_name(self):
         """ returns name of algorithm """
-        return f"demand_first_waypoints"
+        return f"independent_paths_waypoints"

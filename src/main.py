@@ -20,6 +20,10 @@ DEMANDS_SAMPLES = 10
 ALGORITHM_TIME_OUT = 3600 * 4
 ACTIVE_PAIRS_FRACTION = 0.2
 
+ALGORITHMS = [
+
+]
+
 
 def work(algorithm_name, links, n, demands, ilp_method, setup, time_out, res_handler):
     """ Thread worker method: starts a single test instance, i.e.,
@@ -39,7 +43,7 @@ def work(algorithm_name, links, n, demands, ilp_method, setup, time_out, res_han
         result_dict.update(err_solution)
         print(f"{HIGHLIGHT}Error on: {setup}\n msg: {str(ex)}{CEND}")
     res_handler.insert_result(result_dict)
-    return success, result_dict["objective"]
+    return success, result_dict["objective"], result_dict["process_time"]
 
 
 def get_demands_generator_mcf_maximal(n, links, active_pairs_fraction, seed):
@@ -89,10 +93,12 @@ def all_topologies_synthetic_demands():
 
     # algorithm settings
     algorithms = [
-        "demand_first_waypoints",
-        "heur_ospf_weights",
         "inverse_capacity",
-        "sequential_combination",
+        "random_waypoints",
+        "demand_shortest_path",
+        "independent_paths_waypoints",
+        "demand_first_waypoints",
+#        "heur_ospf_weights" # too slow for our server
     ]
     ilp_method = ""
 
@@ -180,10 +186,10 @@ def all_topologies_synthetic_demands():
                                            topology, topology_provider, ACTIVE_PAIRS_FRACTION, mcf_method, SEED)
 
                     print(f"submit test: {test_idx} ({topology}, {algorithm}, D_idx = {sample_idx})")
-                    success, objective = work(algorithm, links.copy(), n, demands.copy(), ilp_method, setup,
+                    success, objective, time = work(algorithm, links.copy(), n, demands.copy(), ilp_method, setup,
                                               ALGORITHM_TIME_OUT, result_handler)
                     print(f"Test-ID: {test_idx}, success: {success} [{algorithm}, "
-                          f"{topology}, {sample_idx}]: objective: {round(objective, 4)}")
+                              f"{topology}, {sample_idx}]:, time: {time} objective: {round(objective, 4)}")
                     test_idx += 1
     return
 
@@ -195,14 +201,13 @@ def abilene_all_algorithms():
     # algorithm settings
     algorithms = [  # ("algorithm_name", "ilp_method")
         ("demand_first_waypoints", ""),
-        ("heur_ospf_weights", ""),
+        #("heur_ospf_weights", ""), too slow for our server
         ("inverse_capacity", ""),
-        ("sequential_combination", ""),
-        ("uniform_weights", ""),
-        ("segment_ilp", "WEIGHTS"),
-        ("segment_ilp", "WAYPOINTS"),
-        ("segment_ilp", "JOINT"),
+        ("independent_paths_waypoints", ""),
+        ("random_waypoints", ""),
+        ("demand_shortest_path", "")
     ]
+
 
     # topology provider setup
     topology_provider = "snd_lib"
@@ -228,10 +233,10 @@ def abilene_all_algorithms():
                                        topology, topology_provider, ACTIVE_PAIRS_FRACTION, mcf_method, SEED)
 
                 print(f"submit test: {test_idx} ({topology}, {algorithm} {ilp_method}, D_idx = {sample_idx})")
-                success, objective = work(algorithm, links.copy(), n, demands.copy(), ilp_method, setup,
+                success, objective, time = work(algorithm, links.copy(), n, demands.copy(), ilp_method, setup,
                                           ALGORITHM_TIME_OUT, result_handler)
                 print(f"Test-ID: {test_idx}, success: {success} [{algorithm} {ilp_method}, "
-                      f"{topology}, {sample_idx}]: objective: {round(objective, 4)}")
+                          f"{topology}, {sample_idx}]: time: {time} objective: {round(objective, 4)}")
                 test_idx += 1
     return
 
@@ -242,16 +247,18 @@ def snd_real_demands():
 
     # algorithm settings
     algorithms = [
-        "demand_first_waypoints",
-        "heur_ospf_weights",
         "inverse_capacity",
-        "sequential_combination",
+        "random_waypoints",
+        "demand_shortest_path",
+        "independent_paths_waypoints",
+        "demand_first_waypoints",
+        "heur_ospf_weights"
     ]
     ilp_method = ""
 
     # topology provider setup
     topology_provider = "snd_lib"
-    topologies = ['abilene', 'geant', 'germany50']
+    topologies = ['abilene', 'geant']
     topology_generator = get_topology_generator(topology_provider, topologies)
 
     # demand provider setup
@@ -272,10 +279,10 @@ def snd_real_demands():
                                        topology, topology_provider, 1, mcf_method, SEED)
 
                 print(f"submit test: {test_idx} ({topology}, {algorithm}, D_idx = {sample_idx})")
-                success, objective = work(algorithm, links.copy(), n, demands.copy(), ilp_method, setup,
+                success, objective, time = work(algorithm, links.copy(), n, demands.copy(), ilp_method, setup,
                                           ALGORITHM_TIME_OUT, result_handler)
                 print(f"Test-ID: {test_idx}, success: {success} [{algorithm}, "
-                      f"{topology}, {sample_idx}]: objective: {round(objective, 4)}")
+                          f"{topology}, {sample_idx}]: Time: {time} - objective: {round(objective, 4)}")
                 test_idx += 1
     return
 
