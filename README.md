@@ -59,8 +59,8 @@ Additionally, we use the topology data available from [TopologyZoo](http://www.t
 We have prepared a Ubuntu-VM to run the project. You can download a **ova** for Virtual-Box [here](https://tu-dortmund.sciebo.de/s/WNjHq43fUi0S35i).
 The username is "ubuntu" and the password is "ubuntu"
 The code is located at /home/ubunbut/Fachprojekt. 
-You may need to get a Gurobi licences if the one we provide in the image is not working.
-After importing the VM you can change into the /home/ubunbut/Fachprojekt directory and follow the steps below.
+You need to get yourself a [Gurobi license](https://www.gurobi.com/downloads/free-academic-license/). Ohterwise the algorithms wont work correctly.
+After importing the VM ,and installing the Gurobi license, you can change into the /home/ubunbut/Fachprojekt directory and follow the steps below.
 
 ## Install Python & Dependencies
 Create a conda environment and install all python dependencies using the provided environment.yml file:
